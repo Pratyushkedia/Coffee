@@ -1,7 +1,21 @@
 const noBtn = document.getElementById("noBtn");
 
-noBtn.addEventListener("mouseover", function () {
-  this.style.position = "absolute";
-  this.style.top = Math.random() * 80 + "%";
-  this.style.left = Math.random() * 80 + "%";
-});
+function moveButton() {
+  const maxX = window.innerWidth - noBtn.offsetWidth;
+  const maxY = window.innerHeight - noBtn.offsetHeight;
+
+  noBtn.style.position = "absolute";
+  noBtn.style.left = Math.random() * maxX + "px";
+  noBtn.style.top = Math.random() * maxY + "px";
+}
+
+// Detect if device supports touch (mobile)
+const isMobile = "ontouchstart" in window || navigator.maxTouchPoints > 0;
+
+if (isMobile) {
+  // Only mobile → auto move
+  setInterval(moveButton, 300);
+} else {
+  // Only desktop → hover move
+  noBtn.addEventListener("mouseover", moveButton);
+}
